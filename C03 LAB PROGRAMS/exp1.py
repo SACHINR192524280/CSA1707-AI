@@ -1,0 +1,30 @@
+# Map Coloring Problem (Simple Version)
+
+states = ['A', 'B', 'C', 'D']
+colors = ['Red', 'Green', 'Blue']
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+result = {}
+
+for state in states:
+    for color in colors:
+        valid = True
+
+        for neighbor in graph[state]:
+            if neighbor in result and result[neighbor] == color:
+                valid = False
+                break
+
+        if valid:
+            result[state] = color
+            break
+
+print("Map Coloring Solution:")
+for state in result:
+    print(state, "->", result[state])
