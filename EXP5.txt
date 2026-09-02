@@ -1,0 +1,20 @@
+import math
+
+def entropy(y):
+    n = len(y)
+    return -sum((y.count(c)/n) * math.log2(y.count(c)/n)
+                for c in set(y))
+
+def gain(X, y, col):
+    values = set(row[col] for row in X)
+    e = 0
+    for v in values:
+        sub = [y[i] for i in range(len(y)) if X[i][col] == v]
+        e += len(sub)/len(y) * entropy(sub)
+    return entropy(y) - e
+
+X = [[1,1], [1,0], [0,1], [0,0]]
+y = [1,1,0,0]
+
+for i in range(len(X[0])):
+    print("Information Gain:", gain(X, y, i))
